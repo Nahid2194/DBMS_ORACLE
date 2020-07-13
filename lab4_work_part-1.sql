@@ -1,0 +1,82 @@
+drop table Student_Course;
+drop table Teacher_Course;
+drop table student;
+drop table teacher;
+drop table COURSE;
+CREATE TABLE student(
+   student_id    NUMBER(15) NOT NULL,
+   SNAME         VARCHAR2(15),
+   SDEPARTMENT   VARCHAR2(30),
+   CGPA          NUMBER(3,2),
+   PRIMARY KEY (student_id)
+);
+
+
+CREATE TABLE teacher(
+   teacher_id    NUMBER(15) NOT NULL,
+   TNAME         VARCHAR2(15),
+   DESIGNATION   VARCHAR2(30),
+   DEPARTMENT    VARCHAR2(15),
+   PNUMBER       VARCHAR2(11),
+   PRIMARY KEY   (teacher_id)
+);
+
+
+CREATE TABLE COURSE(
+   COURSE_ID     NUMBER(15),
+   CNAME         VARCHAR2(15),
+   CREDIT        NUMBER(1),
+   PRIMARY KEY   (COURSE_ID),
+   UNIQUE (CNAME)
+);
+
+
+ 
+CREATE TABLE Student_Course(
+   sid            NUMBER(15) NOT NULL,
+   cid             NUMBER(15) NOT NULL,
+   FOREIGN KEY (sid) REFERENCES student (student_id) ON DELETE CASCADE,
+   FOREIGN KEY (cid) REFERENCES COURSE (COURSE_ID) ON DELETE CASCADE
+);
+
+
+CREATE TABLE Teacher_Course(
+   tid           NUMBER(15) NOT NULL,
+   cid            NUMBER(15) NOT NULL,
+   FOREIGN KEY (tid) REFERENCES teacher (teacher_id) ON DELETE CASCADE,
+   FOREIGN KEY (cid) REFERENCES COURSE (COURSE_ID) ON DELETE CASCADE
+);
+
+
+
+INSERT INTO student VALUES(182152206,'shahin','CSE',3.5) ;
+INSERT INTO student VALUES(182152194,'Nahid','CSE',3.9) ;
+INSERT INTO student VALUES(182152208,'shehab','CSE',3.2) ;
+INSERT INTO student VALUES(182152165,'hadi','CSE',3.25) ;
+INSERT INTO student VALUES(182152124,'sharif','CSE',3.75) ;
+
+
+INSERT INTO teacher VALUES(710001671,'reduan','senior lecturer','CSE','19000100001') ;
+INSERT INTO teacher VALUES(710001672,'Saif Parbez','lecturer','CSE','19000100002') ;
+INSERT INTO teacher VALUES(710001673,'Tanvir','senior lecturer','CSE','19000100003') ;
+INSERT INTO teacher VALUES(710001674,'Aminul haque','Associate professor','CSE','19000100004') ;
+
+
+INSERT INTO COURSE VALUES(111,'CSE111',3) ;
+INSERT INTO COURSE VALUES(112,'CSE212',3) ;
+INSERT INTO COURSE VALUES(113,'CSE311',3) ;
+INSERT INTO COURSE VALUES(114,'CSE411',3) ;
+INSERT INTO COURSE VALUES(115,'GED',3) ;
+
+INSERT INTO Student_Course VALUES(182152194,111) ;
+INSERT INTO Student_Course VALUES(182152194,115) ;
+INSERT INTO Student_Course VALUES(182152194,114) ;
+INSERT INTO Student_Course VALUES(182152206,112) ;
+INSERT INTO Student_Course VALUES(182152206,114) ;
+INSERT INTO Student_Course VALUES(182152208,111) ;
+
+INSERT INTO Teacher_Course VALUES(710001671,111) ;
+INSERT INTO Teacher_Course VALUES(710001671,112) ;
+INSERT INTO Teacher_Course VALUES(710001672,111) ;
+INSERT INTO Teacher_Course VALUES(710001673,111) ;
+INSERT INTO Teacher_Course VALUES(710001674,115) ;
